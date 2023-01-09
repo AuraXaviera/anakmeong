@@ -1,0 +1,58 @@
+{
+  "name": "affilicats",
+  "version": "1.0.0",
+  "description": "Progressive Web App demo that showcases flaky network resilience measures",
+  "scripts": {
+    "build": "rm -rf docs && mkdir -p docs && cp src/favicon.ico docs && node build/build.js > docs/manifest.webmanifest && imagemin src/img/*.{webp,png,svg,jpg,jpeg} --out-dir=docs/img && babel src/**.js --out-dir docs --presets=minify && babel src/js/**.js --out-dir docs/js --presets=minify && postcss \"src/css/**.css\" --use cssnano --map false --dir docs/css && html-minifier --collapse-boolean-attributes --collapse-inline-tag-whitespace --collapse-whitespace --minify-css --minify-js --custom-attr-collapse /on/ --remove-attribute-quotes --process-scripts 'text/javascript' --sort-attributes --sort-class-name --minify-urls --input-dir src --output-dir docs --file-ext html && babel src/js/main.js --out-file docs/js/main-legacy.js --presets=@babel/env,minify && babel src/js/forward.js --out-file docs/js/forward-legacy.js --presets=@babel/env,minify && cp node_modules/@babel/polyfill/dist/polyfill.min.js docs/js/polyfill-legacy.js",
+    "lint": "eslint src/ --fix && stylelint src/css/**.css --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoogleChromeLabs/affilicats.git"
+  },
+  "keywords": [
+    "PWA",
+    "service",
+    "worker"
+  ],
+  "author": "Thomas Steiner <steiner.thomas@gmail.com> (http://blog.tomayac.com/)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/GoogleChromeLabs/affilicats/issues"
+  },
+  "homepage": "https://github.com/GoogleChromeLabs/affilicats#readme",
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 8
+    },
+    "extends": [
+      "google"
+    ],
+    "env": {
+      "es6": true,
+      "browser": true,
+      "serviceworker": true,
+      "node": true
+    }
+  },
+  "stylelint": {
+    "extends": "stylelint-config-standard"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-preset-minify": "^0.5.0",
+    "cssnano": "^4.1.7",
+    "eslint": "^5.8.0",
+    "eslint-config-google": "^0.11.0",
+    "html-minifier": "^3.5.21",
+    "imagemin-cli": "^3.0.0",
+    "postcss-cli": "^6.0.1",
+    "stylelint": "^9.7.0",
+    "stylelint-config-standard": "^18.2.0"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0"
+  }
+}
